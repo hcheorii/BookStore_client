@@ -8,6 +8,7 @@ function Header() {
     );
 }
 
+//$ 이걸로 시작하는 문장은 provider가 주는 theme을 받아오는 것.
 const HeaderStyle = styled.header`
     background-color: ${({ theme }) => theme.color.background};
     h1 {

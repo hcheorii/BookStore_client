@@ -1,14 +1,8 @@
-import { ThemeName } from "../../style/theme";
-
-interface Props {
-    themeName: ThemeName;
-    setThemeName: (themeName: ThemeName) => void;
-}
-
-function ThemeSwitcher({ themeName, setThemeName }: Props) {
-    const toggleTheme = () => {
-        setThemeName(themeName === "light" ? "dark" : "light");
-    };
+import { useContext } from "react";
+import { ThemeContext } from "../../context/themeContext";
+//다크모드 라이트모드 변환하는 버튼 return
+function ThemeSwitcher() {
+    const { themeName, toggleTheme } = useContext(ThemeContext);
     return <button onClick={toggleTheme}>{themeName}</button>;
 }
 

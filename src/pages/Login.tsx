@@ -18,9 +18,11 @@ function Login() {
     const { isloggedIn, storeLogin, storeLogout } = useAuthStore();
 
     const nav = useNavigate(); //페이지 이동을 위한 것
+
     const showAlert = useAlert(); //string을 받아서 alert를 띄워주는 것
+
     const {
-        register,
+        register, //input 요소를 React hook form과 연결시켜 검증 규칙을 적용할 수 있게 하는 메소드
         handleSubmit,
         formState: { errors },
     } = useForm<SignupProps>();

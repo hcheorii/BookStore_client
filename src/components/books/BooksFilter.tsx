@@ -5,13 +5,10 @@ import { useSearchParams } from "react-router-dom"; //쿼리스트링을 다루�
 import { QUERYSTRING } from "../../constants/querystring";
 
 function BooksFilter() {
-    const { category } = useCategory();
-    console.log(category); // 이 부분 추가
+    const { category } = useCategory(); //카테고리가 뭐뭐 있는지 useCategory를 사용해서 불러온다.
     const [searchParams, setSearchParams] = useSearchParams();
 
     const handleCategory = (id: number | null) => {
-        console.log(1);
-
         const newSearchParams = new URLSearchParams(searchParams);
 
         if (id === null) {
@@ -20,6 +17,7 @@ function BooksFilter() {
         } else {
             newSearchParams.set(QUERYSTRING.CATEGORY_ID, id.toString());
         }
+        //url 변경
         setSearchParams(newSearchParams);
     };
 
@@ -30,6 +28,7 @@ function BooksFilter() {
         } else {
             newSearchParams.set(QUERYSTRING.NEWS, "true");
         }
+        //url 변경
         setSearchParams(newSearchParams);
     };
     return (

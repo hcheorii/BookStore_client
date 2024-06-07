@@ -3,14 +3,16 @@ import { Book } from "../../models/book.model";
 import { getImgSrc } from "../../utils/images";
 import { formatNumber } from "../../utils/format";
 import { FaHeart } from "react-icons/fa"; //리액트 아이콘에 있는 하트 이미지
+import { viewMode } from "./BooksViewSwitcher";
 
 interface Props {
     book: Book;
+    view?: viewMode;
 }
 
-function BookItem({ book }: Props) {
+function BookItem({ book, view }: Props) {
     return (
-        <BookItemStyle>
+        <BookItemStyle view={view}>
             <div className="img">
                 <img
                     //일종의 더미 이미지를 가져오는 것
@@ -32,14 +34,15 @@ function BookItem({ book }: Props) {
         </BookItemStyle>
     );
 }
-
-const BookItemStyle = styled.div`
+//프롭스 중에서 view만 가져오기
+const BookItemStyle = styled.div<Pick<Props, "view">>`
     display: flex;
-    flex-direction: column;
+    flex-direction: ${({ view }) => (view === "grid" ? "column" : "row")};
     box-shadow: 0 0 4px rgba(0, 0, 0, 0.2);
     .img {
         border-radius: ${({ theme }) => theme.borderRadius.default};
         overflow: hidden;
+        width: ${({ view }) => (view === "grid" ? "auto" : "160px")};
         img {
             max-width: 100%;
         }
@@ -48,6 +51,8 @@ const BookItemStyle = styled.div`
     .content {
         padding: 16px;
         position: relative;
+        flex: ${({ view }) => (view === "grid" ? 0 : 1)};
+
         .title {
             font-size: 1.25rem;
             font-weight: 700;
@@ -77,8 +82,8 @@ const BookItemStyle = styled.div`
             color: ${({ theme }) => theme.color.primary};
             margin: 0 0 4px 0;
             font-weight: 700;
-            border-radius: ${({ theme }) => theme.borderRadius.default};
             border: 1px solid ${({ theme }) => theme.color.border};
+            border-radius: ${({ theme }) => theme.borderRadius.default};
             padding: 4px 12px;
             position: absolute;
             bottom: 16px;

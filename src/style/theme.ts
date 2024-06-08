@@ -1,21 +1,20 @@
-export type ThemeName = "light" | "dark"; //테마 이름의 타입
+export type ThemeName = "light" | "dark";
 export type ColorKey =
     | "primary"
     | "background"
     | "secondary"
     | "third"
     | "border"
-    | "text"; //색깔에 대한 타입
+    | "text";
+
 export type HeadingSize = "large" | "medium" | "small";
 export type ButtonSize = "large" | "medium" | "small";
-export type ButtonScheme = "primary" | "normal";
+export type ButtonScheme = "primary" | "normal" | "like";
 export type LayoutWidth = "large" | "medium" | "small";
 
 interface Theme {
     name: ThemeName;
-    color: {
-        [key in ColorKey]: string;
-    };
+    color: Record<ColorKey, string>;
     heading: {
         [key in HeadingSize]: {
             fontSize: string;
@@ -75,7 +74,7 @@ export const light: Theme = {
         },
         small: {
             fontSize: "0.75rem",
-            padding: "0.25 rem 0.5rem",
+            padding: "0.25rem 0.5rem",
         },
     },
     buttonScheme: {
@@ -85,7 +84,11 @@ export const light: Theme = {
         },
         normal: {
             color: "black",
-            backgroundColor: "lightgray",
+            backgroundColor: "lightgrey",
+        },
+        like: {
+            color: "white",
+            backgroundColor: "coral",
         },
     },
     borderRadius: {
@@ -95,13 +98,13 @@ export const light: Theme = {
         width: {
             large: "1020px",
             medium: "760px",
-            small: "360px",
+            small: "320px",
         },
     },
 };
 
 export const dark: Theme = {
-    ...light, //위에 heading은 dark건 light건 필요하기 떄문에 복붙보다는 이 연산자 사용
+    ...light,
     name: "dark",
     color: {
         primary: "coral",

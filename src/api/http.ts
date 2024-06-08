@@ -14,7 +14,7 @@ export const createClient = (config?: AxiosRequestConfig) => {
         headers: {
             //JSON 형식의 데이터를 주고받도록
             "Content-type": "application/json",
-            Authorization: getToken() ? getToken() : "",
+            Authorization: getToken() ? getToken() : "ㅁㄴㅇㅁㄴㅇ",
         },
         withCredentials: true, // withCredentials 옵션 설정
         ...config,

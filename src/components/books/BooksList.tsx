@@ -10,6 +10,7 @@ interface Props {
 }
 
 function BooksList({ books }: Props) {
+    //그리드로 볼건지 리스트로 볼건지에 대한 상태
     const [view, setView] = useState<viewMode>("grid");
     const location = useLocation();
 

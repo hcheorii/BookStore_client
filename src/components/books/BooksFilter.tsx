@@ -15,6 +15,7 @@ function BooksFilter() {
             //전체를 클릭했을 경우
             newSearchParams.delete(QUERYSTRING.CATEGORY_ID);
         } else {
+            //url에 추가..
             newSearchParams.set(QUERYSTRING.CATEGORY_ID, id.toString());
         }
         //url 변경

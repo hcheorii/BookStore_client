@@ -1,14 +1,14 @@
 import { styled } from "styled-components";
 import { ButtonScheme, ButtonSize } from "../../style/theme";
+import React from "react";
 
 interface Props extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     children: React.ReactNode;
     size: ButtonSize;
     scheme: ButtonScheme;
-    disabled?: boolean; //버튼 활성화 할지말지
+    disabled?: boolean;
     isLoading?: boolean;
 }
-
 function Button({
     children,
     size,
@@ -16,9 +16,17 @@ function Button({
     disabled,
     isLoading,
     onClick,
+    ...props
 }: Props) {
     return (
-        <ButtonStyle size={size} scheme={scheme} onClick={onClick}>
+        <ButtonStyle
+            size={size}
+            scheme={scheme}
+            disabled={disabled}
+            isLoading={isLoading}
+            onClick={onClick}
+            {...props}
+        >
             {children}
         </ButtonStyle>
     );

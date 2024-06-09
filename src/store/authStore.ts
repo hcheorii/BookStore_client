@@ -8,6 +8,8 @@ interface StoreState {
 
 export const getToken = () => {
     const token = localStorage.getItem("token");
+    console.log(1111111111111111111111111);
+    console.log(token, "authStore");
     return token;
 };
 export const setToken = (token: string) => {
@@ -22,11 +24,15 @@ export const useAuthStore = create<StoreState>((set) => ({
     //로그인해서 토큰이 있다면 true, 없으면 false
     isloggedIn: getToken() ? true : false, //초기값
     storeLogin: (token: string) => {
-        set({ isloggedIn: true });
+        set({
+            isloggedIn: true,
+        });
         setToken(token);
     },
     storeLogout: () => {
-        set({ isloggedIn: false });
+        set({
+            isloggedIn: false,
+        });
         removeToken();
     },
 }));

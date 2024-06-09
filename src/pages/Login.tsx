@@ -19,7 +19,7 @@ function Login() {
 
     const nav = useNavigate(); //페이지 이동을 위한 것
 
-    const showAlert = useAlert(); //string을 받아서 alert를 띄워주는 것
+    const { showAlert } = useAlert(); //string을 받아서 alert를 띄워주는 것
 
     const {
         register, //input 요소를 React hook form과 연결시켜 검증 규칙을 적용할 수 있게 하는 메소드
@@ -32,6 +32,7 @@ function Login() {
             (res) => {
                 //상태 변화
                 storeLogin(res.token);
+                console.log(res.token);
                 showAlert("로그인이 성공했습니다.");
                 nav("/");
             },

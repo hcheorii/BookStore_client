@@ -20,7 +20,7 @@ function Signup() {
     // };
 
     const nav = useNavigate(); //페이지 이동을 위한 것
-    const showAlert = useAlert(); //string을 받아서 alert를 띄워주는 것
+    const { showAlert } = useAlert(); //string을 받아서 alert를 띄워주는 것
     const {
         register,
         handleSubmit,

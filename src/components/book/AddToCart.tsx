@@ -6,13 +6,15 @@ import { useState } from "react";
 
 import { Link } from "react-router-dom";
 import { useBook } from "../../hooks/useBook";
+
 interface Props {
     book: BookDetail;
 }
 
 function AddToCart({ book }: Props) {
+    //장바구니에 담을 도서의 개수
     const [quantity, setQuantity] = useState<number>(1);
-    // const [cartAdded, setCartAdded] = useState(false);
+
     const { addToCart, cartAdded } = useBook(book.id.toString());
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         setQuantity(Number(e.target.value));
@@ -52,6 +54,8 @@ function AddToCart({ book }: Props) {
             >
                 장바구니 담기
             </Button>
+            {/* cartAdded는 useBooks에서 성공적으로 addCart를 완료하면 true로 설정해준다.
+            즉 정상적으로 장바구니에 담겼으면 cartAdded값이 true이다. */}
             {cartAdded && (
                 <div className="added">
                     <p>장바구니에 추가되었습니다.</p>

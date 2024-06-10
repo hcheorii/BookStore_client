@@ -14,6 +14,7 @@ interface Props {
     onDelete: (id: number) => void;
 }
 
+//props는 Cart.tsx에서 넘겨준다.
 function CartItem({ cart, checkedItem, onCheck, onDelete }: Props) {
     //checkedItem은 이미 체크된 애들의 배열
     const { showConfirm } = useAlert();

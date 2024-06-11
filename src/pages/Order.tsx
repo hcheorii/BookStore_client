@@ -1,4 +1,4 @@
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import Title from "../components/common/Title";
 import { CartStyle } from "./Cart";
 import CartSummary from "../components/cart/CartSummary";
@@ -6,6 +6,9 @@ import Button from "../components/common/Button";
 import InputText from "../components/common/InputText";
 import { useForm } from "react-hook-form";
 import { Delivery, OrderSheet } from "../models/order.model";
+import FindAddressButton from "../components/order/FindAddressButton";
+import { order } from "../api/order.api";
+import { useAlert } from "../hooks/useAlert";
 
 interface DeliveryForm extends Delivery {
     addressDetail: string;
@@ -13,14 +16,22 @@ interface DeliveryForm extends Delivery {
 
 function Order() {
     //Cart와 레이아웃이 비슷하기 때문에 CartStyle을 가져와서 사용할 예정
+
+    //location은 Cart에서 navigate로 보낸 데이터를 꺼낼 수 있다.
     const location = useLocation();
 
+    const { showAlert, showConfirm } = useAlert();
+    const navigate = useNavigate();
+
+    //주문할 상품의 데이터
     const orderDataFromCart = location.state;
+
     const { totalPrice, totalQuantity, firstBookTitle } = orderDataFromCart;
     const {
         register,
         handleSubmit,
         formState: { errors },
+        setValue,
     } = useForm<DeliveryForm>();
 
     const handlePay = (data: DeliveryForm) => {
@@ -34,7 +45,12 @@ function Order() {
 
         //서버로 넘겨준다
 
-        console.log(orderData);
+        showConfirm("주문을 진행하시겠습니다?", () => {
+            order(orderData).then(() => {
+                showAlert("주문이 처리되었습니다.");
+                navigate("/orderList");
+            });
+        });
     };
 
     return (
@@ -57,9 +73,12 @@ function Order() {
                                         })}
                                     />
                                 </div>
-                                <Button size="medium" scheme="normal">
-                                    주소 찾기
-                                </Button>
+                                {/* 카카오에서 제공하는 우편번호 서비스를 사용한 버튼*/}
+                                <FindAddressButton
+                                    onCompleted={(address) => {
+                                        setValue("address", address);
+                                    }}
+                                />
                             </fieldset>
                             {errors.address && (
                                 <p className="error-text ">

@@ -1,9 +1,9 @@
 import styled from "styled-components";
-import { Book } from "../../models/book.model";
-import { getImgSrc } from "../../utils/images";
-import { formatNumber } from "../../utils/format";
+import { Book } from "@/models/book.model";
+import { getImgSrc } from "@/utils/images";
+import { formatNumber } from "@/utils/format";
 import { FaHeart } from "react-icons/fa"; //리액트 아이콘에 있는 하트 이미지
-import { viewMode } from "./BooksViewSwitcher";
+import { viewMode } from "@/components/books/BooksViewSwitcher";
 import { Link } from "react-router-dom";
 
 interface Props {

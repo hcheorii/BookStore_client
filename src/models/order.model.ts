@@ -4,9 +4,9 @@ export interface Order {
     address: string;
     receiver: string;
     contact: string;
-    bookTitle: string;
-    totalQuantity: number;
-    totalPrice: number;
+    book_title: string;
+    total_quantity: number;
+    total_price: number;
 }
 
 export interface OrderSheet {
@@ -21,4 +21,16 @@ export interface Delivery {
     address: string;
     receiver: string;
     contact: string;
+}
+
+export interface OrderDetailItem {
+    book_id: number;
+    title: string;
+    author: string;
+    price: number;
+    quantity: number;
+}
+
+export interface OrderListItem extends Order {
+    detail?: OrderDetailItem[];
 }

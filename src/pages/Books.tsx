@@ -6,13 +6,21 @@ import BooksEmpty from "../components/books/BooksEmpty";
 import Pagination from "../components/books/Pagination";
 import BooksViewSwitcher from "../components/books/BooksViewSwitcher";
 import { useBooks } from "../hooks/useBooks";
+import Loading from "@/components/common/Loading";
 function Books() {
     //서버에 요청해서 받아온 데이터들
     //useBooks를 사용해서 쿼리스트링에 있는 변수들의 조건에 맞는
     //Book의 배열을 반환받는다.
 
-    const { books, pagination, isEmpty } = useBooks();
+    const { books, pagination, isEmpty, isBooksLoading } = useBooks();
 
+    if (isEmpty) {
+        return <BooksEmpty />;
+    }
+
+    if (!books || !pagination || isBooksLoading) {
+        return <Loading />;
+    }
     return (
         <>
             <Title size="large">도서 검색 결과</Title>
@@ -21,9 +29,8 @@ function Books() {
                     <BooksFilter />
                     <BooksViewSwitcher />
                 </div>
-                {!isEmpty && <BooksList books={books} />}
-                {isEmpty && <BooksEmpty />}
-                {!isEmpty && <Pagination pagination={pagination} />}
+                <BooksList books={books} />
+                <Pagination pagination={pagination} />
             </BooksStyle>
         </>
     );

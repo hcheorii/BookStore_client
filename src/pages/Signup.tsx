@@ -2,10 +2,9 @@ import styled from "styled-components";
 import Title from "../components/common/Title";
 import InputText from "../components/common/InputText";
 import Button from "../components/common/Button";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { signup } from "../api/auth.api";
-import { useAlert } from "../hooks/useAlert";
+import { useAuth } from "@/hooks/useAuth";
 export interface SignupProps {
     //회원가입할때 받을 데이터의 타입 정의
     email: string;
@@ -18,9 +17,7 @@ function Signup() {
     // const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     //     event.preventDefault();
     // };
-
-    const nav = useNavigate(); //페이지 이동을 위한 것
-    const { showAlert } = useAlert(); //string을 받아서 alert를 띄워주는 것
+    const { userSignup } = useAuth();
     const {
         register,
         handleSubmit,
@@ -28,12 +25,7 @@ function Signup() {
     } = useForm<SignupProps>();
 
     const onSubmit = (data: SignupProps) => {
-        //auth.api.ts에 있는 signup을 가져온 것.
-        signup(data).then((res) => {
-            //성공
-            showAlert("회원가입이 완료되었습니다.");
-            nav("/login");
-        });
+        userSignup(data);
     };
 
     return (

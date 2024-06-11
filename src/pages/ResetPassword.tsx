@@ -1,12 +1,10 @@
 import Title from "../components/common/Title";
 import InputText from "../components/common/InputText";
 import Button from "../components/common/Button";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { resetPassword, resetRequest } from "../api/auth.api";
-import { useAlert } from "../hooks/useAlert";
 import { SignupStyle } from "./Signup";
-import { useState } from "react";
+import { useAuth } from "@/hooks/useAuth";
 export interface SignupProps {
     //회원가입할때 받을 데이터의 타입 정의
     email: string;
@@ -19,28 +17,22 @@ function ResetPassword() {
     // const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     //     event.preventDefault();
     // };
-    const [resetRequested, setResetRequested] = useState(false);
-    const nav = useNavigate(); //페이지 이동을 위한 것
-    const { showAlert } = useAlert(); //string을 받아서 alert를 띄워주는 것
     const {
         register,
         handleSubmit,
         formState: { errors },
     } = useForm<SignupProps>();
+    const { userResetPassword, userResetRequest, resetRequested } = useAuth();
 
     const onSubmit = (data: SignupProps) => {
-        if (resetRequested) {
-            //초기화
-            resetPassword(data).then(() => {
-                showAlert("비밀번호가 초기화되었습니다.");
-                nav("/login");
-            });
-        } else {
-            //초기화 요청
-            resetRequest(data).then(() => {
-                setResetRequested(true);
-            });
-        }
+        // if (resetRequested) {
+        //     //초기화
+        //     userResetPassword(data);
+        // } else {
+        //     //초기화 요청
+        //     userResetRequest(data);
+        // }
+        resetRequested ? userResetPassword(data) : userResetRequest(data);
     };
 
     return (

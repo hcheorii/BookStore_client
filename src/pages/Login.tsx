@@ -1,13 +1,11 @@
 import Title from "../components/common/Title";
 import InputText from "../components/common/InputText";
 import Button from "../components/common/Button";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { useForm } from "react-hook-form";
-import { login } from "../api/auth.api";
-import { useAlert } from "../hooks/useAlert";
 import { SignupStyle } from "./Signup";
-import { useAuthStore } from "../store/authStore";
-export interface SignupProps {
+import { useAuth } from "@/hooks/useAuth";
+export interface LoginProps {
     //회원가입할때 받을 데이터의 타입 정의
     email: string;
     password: string;
@@ -15,32 +13,17 @@ export interface SignupProps {
 
 function Login() {
     //전역 상태에서 가져온다.
-    const { isloggedIn, storeLogin, storeLogout } = useAuthStore();
 
-    const nav = useNavigate(); //페이지 이동을 위한 것
-
-    const { showAlert } = useAlert(); //string을 받아서 alert를 띄워주는 것
+    const { userLogin } = useAuth();
 
     const {
         register, //input 요소를 React hook form과 연결시켜 검증 규칙을 적용할 수 있게 하는 메소드
         handleSubmit,
         formState: { errors },
-    } = useForm<SignupProps>();
+    } = useForm<LoginProps>();
 
-    const onSubmit = (data: SignupProps) => {
-        login(data).then(
-            (res) => {
-                //상태 변화
-                storeLogin(res.token);
-                console.log(res.token);
-                showAlert("로그인이 성공했습니다.");
-                nav("/");
-            },
-            (error) => {
-                console.log(error);
-                showAlert("로그인이 실패했습니다.");
-            }
-        );
+    const onSubmit = (data: LoginProps) => {
+        userLogin(data);
     };
 
     return (

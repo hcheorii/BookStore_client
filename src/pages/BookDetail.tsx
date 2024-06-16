@@ -9,6 +9,7 @@ import { Link } from "react-router-dom";
 import EllipsisBox from "../components/common/EllipsisBox";
 import LikeButton from "../components/book/LikeButton";
 import AddToCart from "../components/book/AddToCart";
+import BookReview from "@/components/book/BookReview";
 
 const bookInfoList = [
     {
@@ -90,6 +91,8 @@ function BookDetail() {
                 <EllipsisBox linelimit={4}>{book.detail}</EllipsisBox>
                 <Title size="medium">목차</Title>
                 <EllipsisBox linelimit={4}>{book.contents}</EllipsisBox>
+                <Title size="medium">리뷰</Title>
+                <BookReview reviews={reviews} />
             </div>
         </BookDetailStyle>
     );

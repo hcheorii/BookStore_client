@@ -51,7 +51,7 @@ const bookInfoList = [
 
 function BookDetail() {
     const { bookId } = useParams();
-    const { book, likeToggle } = useBook(bookId);
+    const { book, likeToggle, reviews } = useBook(bookId);
 
     if (!book) {
         return null;

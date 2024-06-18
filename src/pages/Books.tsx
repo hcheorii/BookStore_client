@@ -8,6 +8,7 @@ import Loading from "@/components/common/Loading";
 import { useBooksInfinite } from "@/hooks/useBooksInfinite";
 import Button from "@/components/common/Button";
 import { useIntersectionObserver } from "@/hooks/useIntersectionObserver";
+import { useEffect, useRef } from "react";
 function Books() {
     //서버에 요청해서 받아온 데이터들
     //useBooks를 사용해서 쿼리스트링에 있는 변수들의 조건에 맞는
@@ -22,7 +23,7 @@ function Books() {
         hasNextPage,
     } = useBooksInfinite();
 
-    // const moreRef = useRef(null);
+    const moreRef = useRef(null);
 
     // useEffect(() => {
     //     const observer = new IntersectionObserver((entries) => {
@@ -40,18 +41,18 @@ function Books() {
     //     return () => observer.disconnect();
     // }, [books, moreRef]);
 
-    const moreRef = useIntersectionObserver(([entry]) => {
-        if (entry.isIntersecting) {
-            loadMore();
-        }
-    });
+    // const moreRef = useIntersectionObserver(([entry]) => {
+    //     if (entry.isIntersecting) {
+    //         loadMore();
+    //     }
+    // });
 
-    const loadMore = () => {
-        if (!hasNextPage) {
-            return;
-        }
-        fetchNextPage();
-    };
+    // const loadMore = () => {
+    //     if (!hasNextPage) {
+    //         return;
+    //     }
+    //     fetchNextPage();
+    // };
     if (isEmpty) {
         return <BooksEmpty />;
     }

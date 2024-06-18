@@ -7,6 +7,7 @@ interface TabProps {
 }
 
 function Tab({ children }: TabProps) {
+    //여기서 children은 BookDetail에서 보면 Title태그와 EllipsisBox 컴포넌트이다.
     return <>{children}</>;
 }
 
@@ -15,6 +16,7 @@ interface TabsProps {
 }
 
 function Tabs({ children }: TabsProps) {
+    //내가 여러 탭 중에 어떤 탭을 눌렀는지 알 수 있게 해주는 상태.
     const [activeIndex, setActiveIndex] = useState(0);
 
     const tabs = React.Children.toArray(
@@ -30,6 +32,7 @@ function Tabs({ children }: TabsProps) {
                         className={activeIndex === index ? "active btn" : "btn"}
                     >
                         {tab.props.title}
+                        {/* 상세 설명, 목차, 리뷰 */}
                     </button>
                 ))}
             </div>

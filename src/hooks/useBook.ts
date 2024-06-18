@@ -9,6 +9,7 @@ import { useAuthStore } from "../store/authStore";
 import { useAlert } from "./useAlert";
 import { addCart } from "../api/carts.api";
 import { addBookReview, fetchBookReview } from "@/api/review.api";
+import { useToast } from "../hooks/useToast";
 
 export const useBook = (bookId: string | undefined) => {
     const [book, setBook] = useState<BookDetail | null>(null);
@@ -20,6 +21,7 @@ export const useBook = (bookId: string | undefined) => {
 
     const { isloggedIn } = useAuthStore();
     const { showAlert } = useAlert();
+    const { showToast } = useToast();
 
     const likeToggle = () => {
         if (!isloggedIn) {
@@ -38,6 +40,7 @@ export const useBook = (bookId: string | undefined) => {
                     liked: false,
                     likes: book.likes - 1,
                 });
+                showToast("좋아요를 취소했습니다.");
             });
         } else {
             //좋아요를 누른 적이 없다면
@@ -47,6 +50,7 @@ export const useBook = (bookId: string | undefined) => {
                     liked: true,
                     likes: book.likes + 1,
                 });
+                showToast("좋아요를 눌렀습니다.");
             });
         }
     };

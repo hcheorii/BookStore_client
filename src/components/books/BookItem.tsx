@@ -38,7 +38,7 @@ function BookItem({ book, view }: Props) {
     );
 }
 //프롭스 중에서 view만 가져오기
-const BookItemStyle = styled.div<Pick<Props, "view">>`
+export const BookItemStyle = styled.div<Pick<Props, "view">>`
     a {
         display: flex;
         flex-direction: ${({ view }) => (view === "grid" ? "column" : "row")};
